@@ -3,6 +3,7 @@ package com.example.springboothibernate.api;
 
 
         import com.example.springboothibernate.PersonRepository;
+        import com.example.springboothibernate.exception.CannotCalculateRequestedAge;
         import com.example.springboothibernate.model.Person;
         import com.example.springboothibernate.model.PersonWithAge;
         import com.example.springboothibernate.model.TotalAgePeople;
@@ -99,9 +100,11 @@ public class MainController {
             date = date.plusYears(yearsToAdd);
         }
 
-//        if (totalAge > requestedTotalAge || totalPeople == 0) {
-//            throw new CantCalculateRequestedAge();
-//        }
+        if (totalAge > requestedTotalAge || totalPeople == 0) {
+//            @ResponseStatus(HttpStatus.BAD_REQUEST)
+            throw new CannotCalculateRequestedAge();
+//            return null;
+        }
 
 
         while (totalAge < requestedTotalAge) {
